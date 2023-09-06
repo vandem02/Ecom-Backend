@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { Category, Product } = require("../../models");
 
-//get all categories
 router.get("/", (req, res) => {
   Category.findAll({
     attributes: ["id", "category_name"],
@@ -34,11 +33,9 @@ router.get("/:id", (req, res) => {
   })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res
-          .status(404)
-          .json({
-            message: "The category you are trying to find does not exist!",
-          });
+        res.status(404).json({
+          message: "Category not found.",
+        });
         return;
       }
       res.json(dbCategoryData);
@@ -49,9 +46,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// post category
 router.post("/", (req, res) => {
-  // expects {category_name: 'Some Category'}
   Category.create({
     category_name: req.body.category_name,
   })
@@ -62,7 +57,6 @@ router.post("/", (req, res) => {
     });
 });
 
-// update categry
 router.put("/:id", (req, res) => {
   Category.update(
     {
@@ -76,11 +70,9 @@ router.put("/:id", (req, res) => {
   )
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res
-          .status(404)
-          .json({
-            message: "The category you are trying to update does not exist!",
-          });
+        res.status(404).json({
+          message: "Category not found.",
+        });
         return;
       }
       res.json(dbCategoryData);
@@ -91,7 +83,6 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// delete category
 router.delete("/:id", (req, res) => {
   Category.destroy({
     where: {
@@ -100,11 +91,9 @@ router.delete("/:id", (req, res) => {
   })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res
-          .status(404)
-          .json({
-            message: "The category you are trying to delete does not exist!",
-          });
+        res.status(404).json({
+          message: "Category not found.",
+        });
         return;
       }
       res.json(dbCategoryData);
