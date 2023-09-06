@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
     .then((dbProductData) => {
       if (!dbProductData) {
         res.status(404).json({
-          message: "The product you are trying to find does not exist!",
+          message: "Product not found.",
         });
         return;
       }
@@ -65,7 +65,7 @@ router.post("/", (req, res) => {
         });
         return ProductTag.bulkCreate(productTagIdArr);
       }
-      res.status(200).json(product);
+      res.status(201).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
